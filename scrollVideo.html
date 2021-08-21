@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>ThreeJS Test</title>
+        <style>
+            body {
+                margin: 0px;
+            }
+
+            #v0 {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+            }
+
+            #setHeight {
+                display: block;
+            }
+        </style>
+
+        <script type="text/javascript">
+
+        function onLoaded() {
+
+            console.log("loaded");
+            var frameNumber = 0; // start video at frame 0
+            // lower numbers = faster playback
+            var playbackConst = 500;
+
+            vid = document.getElementById('v0');
+            setHeight = document.getElementById('setHeight');
+
+            vid.addEventListener('loadedmetadata', function() {
+                setHeight.style.height = Math.floor(vid.duration) * playbackConst + "px";
+            });
+
+            function scrollPlay(){  
+                var frameNumber  = window.pageYOffset/playbackConst;
+                vid.currentTime  = frameNumber;
+                window.requestAnimationFrame(scrollPlay);
+            }
+
+            window.requestAnimationFrame(scrollPlay);
+        }
+
+        </script>
+    </head>
+
+    <body onload="onLoaded()">
+        <div id="setHeight"></div>
+        <video id="v0">
+        <source type="video/webm" src="videos/testVideoScrollWebM.webm"></source>
+        </video>
+    </body>
+</html>
